@@ -1,0 +1,252 @@
+<<tblsubsumption, child='tbl.subsumption.Rtex'>>=
+@
+<<tblpitmut, child='tbl.pitmut.Rtex'>>=
+@
+<<figsubsumption, child='fig.subsumption.Rtex'>>=
+@
+
+\section{Methodology}
+\label{sec:methodology}
+Our selection of programs was driven by a few overriding concerns. Our
+primary requirement was that our results had to be as widely applicable as
+possible for real-world programs. Secondly, we strived for a statistically
+significant result, reducing the number of variables present in the
+experiments. For this reason we chose a random sample of Java projects from
+Github~\cite{github} and Apache Software Foundation~\cite{apache} that use
+the popular maven~\cite{maven} build system, following the methodology we
+used previously in an ICSE 2014 paper~\cite{gopinath2014code}.
+
+We ran mutation analysis on this set of projects using
+PIT\cite{pitest}. However, since the operators provided by PIT are limited,
+we extended PIT to provide newer operators that are similar to operators
+provided by other mutation systems. The set of operators that we used is
+provided in Table~\ref{tbl:pitop}.
+
+In order to ensure that the operators that we added were not redundant,
+we computed their operator subsumption matrix. This is given in
+Table~\ref{tbl:subsumption}. In the table, the mean number of mutants
+of an operator in the row subsumed by another operator in the column
+is given as the decimal fraction (i.e $1.0$ suggests complete subsumption
+of one mutation operator by the other). A visualization of the subsumption is
+presented in Figure~\ref{fig:subsumption}. In the figure, the amount of
+subsumption is indicated by removal of area from the circle, with same
+operators subsuming themselves entirely. This suggests that the operators
+we used were non-redundant, with a maximum subsumption of only $40\%$.
+The Figure~\ref{fig:mutationshare} shows the share of each mutation operators
+in the total number of mutants produced, and the Figure~\ref{fig:mutationkills}
+shows the relative frequency with which tests are able to cover and kill
+different mutation operators.
+
+For a detailed description of each mutation operator, please refer to PIT
+documentation~\cite{pitmut}.  We modified PIT to report the entire test
+matrix of $tests \times failures$ rather than just the first failure, and
+used this for our analysis. To remove the effects of random noise, results
+of each criteria was averaged out of ten runs.
+
+\subsection{Sampling Criteria}
+We used several different sampling criteria that has been mentioned in the
+literature, For each sampling criteria, we sampled mutants on a decreasing
+power scale, sampling $\frac{1}{2}$, $\frac{1}{4}$, $\frac{1}{8}$,
+$\frac{1}{16}$, $\frac{1}{32}$, $\frac{1}{64}$ of the total mutants.
+
+\subsubsection{Uniform random sampling}
+The simplest sampling approach consisted of using x\% selection as suggested
+by Budd~\cite{budd1980mutation}. In this criteria, we choose a specific
+fraction of the complete set of mutants. This criteria also serves as a
+baseline for verifying the effectiveness of other criteria.
+
+\subsubsection{Stratified random sampling over mutation operators}
+This strategy, first suggested by Wong et al.~\cite{wong1995reducing}
+samples an equal percentage of mutants from each operator. While Wong seems
+to treat this as same as x\% selection, without giving any further
+justification as to why it was used instead, we note that this sampling is
+subtly different from pure random sampling in that it provides a stratified
+sampling based on mutation operators.
+
+\subsubsection{Stratified random sampling over program elements}
+Following the suggestion of Zhang et al.~\cite{zhang2013ase}, we extended
+x\% selection criteria to sample from within different program elements.
+We sampled in increasing order of scope, --- \textit{line}, \textit{method}
+and \textit{class} (\textit{project} scope is just x\% selection).
+
+We used the formula by Zhang et al.~\cite{zhang2013ase},
+\[sample(x) = \lfloor x + random(0..1) \rfloor \]
+to correctly sample decimal numbers.
+
+\subsection{Operator Selection}
+For selective methods, we tried mutation operators
+suggested by Wong et al.~\cite{wong1995reducing}, Offutt et
+al.~\cite{offutt1996anexperimental,deng2013empirical}, and, Namin et
+al.~\cite{siami2008sufficient}. Since Javalanche~\cite{javalanche} utilized
+operator selection mechanisms, we also compared the Javalanche operators for
+operator selection. Note that all of these techniques except Javalanche have
+targeted C programs. Thus, some of these operators may be sensible in C but
+not in Java. For example, deletion of return statement is tolerated in C,
+not in Java.  Moreover, there were a few operators that were not supported
+by the PIT, and could not be implemented easily (as mentioned below).
+
+\subsubsection{Constrained Mutation}
+\noindent\textbf{Wong et al. ~\cite{wong1995reducing}.} They selected ROR
+and ABS from Mothra for mutation analysis. The ABS operator was chosen with
+the reasoning that it forces users to consider all parts of the input domain,
+and ROR was chosen because it forces users to consider values of predicates.
+ROR mutates relational operators, while ABS replaces variables and expressions
+by their positive or negative absolute value or zero. \Pitcb and \Pitnc from
+PIT are a good map for ROR. Similarly, \Pitin is able to partially provide ABS
+functionality.
+
+% ROR Relational Operator Replacement a > b to b < a
+% ABS Absolute value insertion a = b to a = abs(b), -abs(b), 0
+
+\subsubsection{E-Selective}
+\noindent\textbf{Offut et al. \cite{offutt1996anexperimental}.} Mothra supports
+three main classes of operators; Replacement (operand) mutators, Expression (operator)
+mutators and Statement mutators. The operator selections used in this paper
+are groupings of these operators, such as ES, ER, RE, RS, and E.
+
+The best strategy identified was E-Selective strategy chooses only those
+mutators that modify operators. These for Mothra were ABS, UOI, LCR, AOR, and
+ROR. UOI operates by incrementing or decrementing arithmetic expressions by 1,
+LCR changes the relational operators, and AOR mutates arithmetic operators.
+
+To accomplish the same with Pit, we divided the Pit operators similarly.
+Operand mutators are \Pitic, \Pitemv, and \Pitin. Operator mutators are \Pitm,
+\Pitcb, \Pitnc, \Pitrc, and \Pitdc. Statement mutators are given by \Pitrv,
+\Piti, \Pitvmc, \Pitnvmc, \Pitcc, \Pitri, \Pites, \Pitrs.
+
+We report the results of all combinations: ES, ER, RS, E, R, and S
+
+% UOI : Unary insertion : toggle +1, -1
+% LCR : Logical connectives : a && b -> a || b, a, b, T, F
+% AOR : Arithmetic a + b ->  a - b, *,%,a,b
+
+\subsubsection{Javalanche}
+\noindent\textbf{Javalanche \cite{javalanche}.}
+Javalanche uses Negate Jump Condition, Omit Method Call, Replace Arithmetic
+Operator, and Replace Numerical Constant operators. We have used \Pitnc,
+\Pitvmc, \Pitnvmc, \Pitm, \Pitic and \Pitemv to model them.
+
+\subsubsection{Variable Reduction}
+\noindent\textbf{Namin et al.~\cite{siami2008sufficient}.}
+For variable reduction, Namin framed the question of finding the best set of
+mutation operators as a statistical problem of finding the set of operators
+such that we can best predict the final mutation score. That is, given that
+$M$ is the final mutation score, and $m_1,m_2..m_n$ are mutation scores given
+by $n$ mutation operators, Namin wanted to find the smallest set of mutations
+such that we can predict $M$ from the set of $m_{1..n}$. This boils down to
+finding the linear model statistically.
+
+We take advantage of the limited set of operators to run a complete subset
+model comparison to obtain the best model given by
+
+\[\mu{M_s} = 0+.55 nmc + .2 rc + .1 dc + .2 rv + .1 cc + .7emv + .02 m + .02 ri \]
+
+with $R^2 = 0.96$. This suggests that the variables we should be interested
+in are \Pitnvmc, \Pitrc, \Pitdc, \Pitrv, \Pitcc, \Pitemv, \Pitm, and \Pitri.
+
+\begin{comment}
+Call:
+lm(formula = x ~ xnmc + xrc + xdc + xrv + xcc + xemv + xm + xri)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.12643 -0.01446 -0.00313  0.00768  0.52589 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  0.003130   0.004537   0.690  0.49083    
+xnmc         0.549245   0.031977  17.176  < 2e-16 ***
+xrc          0.197321   0.037466   5.267 2.64e-07 ***
+xdc          0.067979   0.027314   2.489  0.01336 *  
+xrv          0.205544   0.028226   7.282 2.87e-12 ***
+xcc         -0.074420   0.023555  -3.159  0.00174 ** 
+xemv         0.071699   0.020909   3.429  0.00069 ***
+xm           0.022937   0.015159   1.513  0.13131    
+xri         -0.026070   0.016472  -1.583  0.11453    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.05318 on 302 degrees of freedom
+Multiple R-squared:  0.9669,  Adjusted R-squared:  0.9661 
+F-statistic:  1104 on 8 and 302 DF,  p-value: < 2.2e-16
+
+
+\end{comment}
+
+%The variable reduction procedure given by Namin results in 28 operators of
+%Proteum analysis tool. Unfortunately for us, unlike the previous selection
+%techniques
+
+%They have tried to reduce the mutation operators of Proteum analysis
+%tool which is for C programs. They suggest 28 operators which many of them
+%are not applicable in Java, and some not in PIT.
+%We used \Pitin, \Pitm, \Piti, and \Pitnc.
+
+\subsubsection{N-selection}
+\noindent\textbf{Offut et al. ~\cite{offutt1993experimental}.} They suggested
+removal of $n$ most numerous operators. In our experiment, the order of
+operators was \Pitnvmc, \Pitrv, \Pitic, \Pitdc, \Pitnc, \Pitrc, \Pitvmc,
+\Pitcc, \Pitemv, \Pitm, \Pitcb, \Piti, \Pitri, \Pitrs, \Pites, and \Pitin.
+We discarded one at each step and evaluated the effectiveness at each $n$.
+
+\subsubsection{Statement deletion emulation} \label{subsec:stmtdel}
+The statement deletion based operator selection was based on the work by
+Deng et al.~\cite{deng2013empirical}. The operations on single
+statements were modeled using \Pitvmc, \Pitnvmc, \Pitcc, \Pitemv, and
+\Pitri~for simple statements, and using \Pitrc for control structures. \Pitrc
+replaces boolean conditions with \textit{false}, resulting in removal of the
+conditional block. The operator for return values was modeled using
+\Pitrv, which is similar.  The operators for \textit{while},
+\textit{for}, and \textit{if} statements were modeled using \Pitdc,
+which replaced the boolean condition with \textit{true}, which removed the
+effect of conditional. The \textit{switch} statement deletion was
+modeled using \Pitrs which replaced the first 100 labels with a
+\textit{default} label, resulting in the switch element being
+deleted. Due to the constraints of the architecture of PIT only the
+first 100 labels were replaced. Deleting \textit{try/catch} was not
+necessary at bytecode level.
+
+Note that we are not attempting to evaluate statement deletion mutation
+directly here. Rather, we have chosen a set of operators that could be
+involved in deletion of statements, and have used that as an operator
+selection criteria. This means that in order to translate the results
+from our experiment back to original statement deletion operator, we need
+to rely on some assumptions. They are, 1) Coupling effect: If a test is
+able to kill a mutant in this set, then it should kill it even when it
+is in combination with other mutants of this set (resulting in deletion
+of deletion of the statement in question). Note that there is a
+possibility for statement deletion to be less effective than our
+experiment, that is, for actual deleted statements to be detected more
+often than individual mutants are detected. However, this does not adversely
+affect our final conclusions.
+
+Finally, while the utility measures and the effectiveness for deletion based
+operators should hold when translating to true statement deletion, the mutation
+share reported is based on the independent mutants, and should not be taken
+as the mutation share of true statement deletion.
+
+% Finally, to get an accurate estimation
+% of the effect of true statement deletion, we grouped the mutants by
+% line, and considered each line a single virtual mutant (that is, the total
+% number of mutants is equal to the total number of lines). Further,
+% killing any mutant from a line resulted in marking the virtual mutant
+% for that line as killed. This gave us the mutation score for the
+% virtual statement deletion operator.  We note that the approximation
+% of simple statement deletion, especially when arithmetic operators are
+% involved, is not complete. However,
+% the number of mutants produced by \Pitm operator is very small. We
+% also note that our approximation does not account for the increase in
+% ease of detection when multiple mutations are combined together due to
+% the coupling effect. This also means that not all the lines may be
+% mutated ,since there may be no applicable operators. However, given
+% the constraints of a bytecode based mutation system, we believe that
+% our procedure is reasonable.
+% An interesting point is that using this
+
+
+%procedure statement, deletion is no longer a simple mutation and
+%qualifies as a higher order mutation operator. In fact, the procedure
+%we outlined can be used in general to judge the effectiveness of a
+%higher order operator from the results of the first order mutation
+%operators that together compose the higher order mutant.
+

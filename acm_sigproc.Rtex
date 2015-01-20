@@ -1,0 +1,153 @@
+% THIS IS SIGPROC-SP.TEX - VERSION 3.1
+% WORKS WITH V3.2SP OF ACM_PROC_ARTICLE-SP.CLS
+% APRIL 2009
+%
+% It is an example file showing how to use the 'acm_proc_article-sp.cls' V3.2SP
+% LaTeX2e document class file for Conference Proceedings submissions.
+% ----------------------------------------------------------------------------------------------------------------
+% This .tex file (and associated .cls V3.2SP) *DOES NOT* produce:
+%       1) The Permission Statement
+%       2) The Conference (location) Info information
+%       3) The Copyright Line with ACM data
+%       4) Page numbering
+% ---------------------------------------------------------------------------------------------------------------
+% It is an example which *does* use the .bib file (from which the .bbl file
+% is produced).
+% REMEMBER HOWEVER: After having produced the .bbl file,
+% and prior to final submission,
+% you need to 'insert'  your .bbl file into your source .tex file so as to provide
+% ONE 'self-contained' source file.
+%
+% Questions regarding SIGS should be sent to
+% Adrienne Griscti ---> griscti@acm.org
+%
+% Questions/suggestions regarding the guidelines, .tex and .cls files, etc. to
+% Gerald Murray ---> murray@hq.acm.org
+%
+% For tracking purposes - this is V3.1SP - APRIL 2009
+
+\documentclass{sig-alternate}
+\usepackage{float}
+\usepackage{xspace}
+\usepackage{placeins}
+\usepackage{comment}
+\usepackage[bookmarks=true, urlcolor=blue, linkcolor=blue, citecolor=blue, colorlinks=true, pdftitle={A comparison of mutant reduction approaches}, pdfauthor={Rahul Gopinath}]{hyperref}
+\usepackage[center]{caption}
+\usepackage{Sweavel}
+\usepackage[font=footnotesize]{subfig}
+
+% IMPORTANT : Remove this if you get an error about copyright box
+%\DeclareCaptionType{copyrightbox}
+
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.7}
+
+\newcommand{\ignore}[1]{}
+ %------------begin Float Adjustment
+%two column float page must be 90% full
+%\renewcommand\dblfloatpagefraction{.90}
+%two column top float can cover up to 80% of page
+%\renewcommand\dbltopfraction{.80}
+%float page must be 90% full
+%\renewcommand\floatpagefraction{.90}
+%top float can cover up to 80% of page
+%\renewcommand\topfraction{.80}
+%bottom float can cover up to 80% of page
+%\renewcommand\bottomfraction{.80}
+%at least 10% of a normal page must contain text
+%\renewcommand\textfraction{.1}
+%separation between floats and text
+\setlength\dbltextfloatsep{9pt plus 5pt minus 3pt }
+%separation between two column floats and text
+\setlength\textfloatsep{4pt plus 2pt minus 1.5pt}
+
+\begin{document}
+
+\input{title}
+
+%
+% You need the command \numberofauthors to handle the 'placement
+% and alignment' of the authors beneath the title.
+%
+% For aesthetic reasons, we recommend 'three authors at a time'
+% i.e. three 'name/affiliation blocks' be placed beneath the title.
+%
+% NOTE: You are NOT restricted in how many 'rows' of
+% "name/affiliations" may appear. We just ask that you restrict
+% the number of 'columns' to three.
+%
+% Because of the available 'opening page real-estate'
+% we ask you to refrain from putting more than six authors
+% (two rows with three columns) beneath the article title.
+% More than six makes the first-page appear very cluttered indeed.
+%
+% Use the \alignauthor commands to handle the names
+% and affiliations for an 'aesthetic maximum' of six authors.
+% Add names, affiliations, addresses for
+% the seventh etc. author(s) as the argument for the
+% \additionalauthors command.
+% These 'additional authors' will be output/set for you
+% without further effort on your part as the last section in
+% the body of your article BEFORE References or any Appendices.
+
+\input{etc/authors}
+
+\maketitle
+\begin{abstract}
+\input{etc/abstract}
+\end{abstract}
+
+\input{etc/keys}
+\newcommand*\per{\scalebox{.5}{\%}}
+\newcommand\Mua{Mutation analysis\xspace}
+\newcommand\mua{mutation analysis\xspace}
+\newcommand{\Pitnvmc}{NMC\xspace}
+\newcommand{\Pitnc}{NC\xspace}
+\newcommand{\Pitrc}{RC\xspace}
+\newcommand{\Pitdc}{DC\xspace}
+\newcommand{\Pitrv}{RV\xspace}
+\newcommand{\Pitic}{IC\xspace}
+\newcommand{\Pitcc}{CC\xspace}
+\newcommand{\Pitemv}{EMV\xspace}
+\newcommand{\Pitvmc}{VMC\xspace}
+\newcommand{\Pitm}{M\xspace}
+\newcommand{\Pitcb}{CB\xspace}
+\newcommand{\Piti}{I\xspace}
+\newcommand{\Pitri}{RI\xspace}
+\newcommand{\Pitrs}{RS\xspace}
+\newcommand{\Pites}{ES\xspace}
+\newcommand{\Pitin}{IN\xspace}
+
+<<rsetup, child='r.setup.Rtex'>>=
+@
+% 10 pages for the main text + 1 for references.
+<<introduction, child='introduction.Rtex'>>=
+@
+<<related, child='related.Rtex'>>=
+@
+
+<<methodology, child='methodology.Rtex'>>=
+@
+
+<<analysis, child='analysis.Rtex'>>=
+@
+<<results, child='results.Rtex'>>=
+@
+<<discussion, child='discussion.Rtex'>>=
+@
+<<threats, child='threats.Rtex'>>=
+@
+<<conclusion, child='conclusion.Rtex'>>=
+@
+%
+% The following two commands are all you need in the
+% initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+\bibliographystyle{abbrv}
+\bibliography{etc/paper}  % sigproc.bib is the name of the Bibliography in this case
+\end{document}

@@ -1,0 +1,190 @@
+<<tests,results='tex'>>=
+mintc.t.test <- function(db) {
+  return(with(db, t.test(sel.mintc,sample.mintc, paired=T))) #, alternative=c("greater"))))
+}
+mutant.t.test <- function(db) {
+  return(with(db, t.test(sel.all.killtcd_mutant,sample.all.killtcd_mutant, paired=T))) #, alternative=c("greater"))))
+}
+db <- subset(common.db, kind == "nsel")
+nsel.t <- mintc.t.test(db)
+nsel.m <- mutant.t.test(db)
+#-- Insufficient evidence that sel.mintc is greater than random selection
+db <- subset(common.db, kind == "opsel")
+opsel.t <- mintc.t.test(db)
+opsel.m <- mutant.t.test(db)
+#-- Insufficient evidence that sel.mintc is greater than random selection
+db <- subset(common.db, kind == "single")
+single.t <- mintc.t.test(db)
+single.m <- mutant.t.test(db)
+#-- Insufficient evidence that sel.mintc is greater than random selection
+db <- subset(common.db, kind == "opx")
+opx.t <- mintc.t.test(db)
+opx.m <- mutant.t.test(db)
+#-- Insufficient evidence that sel.mintc is greater than random selection
+db <- subset(common.db, kind == "lmcp")
+lmcp.t <- mintc.t.test(db)
+lmcp.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="constrained")
+constrained.t <- mintc.t.test(db)
+constrained.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="eselective")
+eselective.t <- mintc.t.test(db)
+eselective.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="javalanche")
+javalanche.t <- mintc.t.test(db)
+javalanche.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="varreduction")
+variable.t <- mintc.t.test(db)
+variable.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="sdl")
+sdl.t <- mintc.t.test(db)
+sdl.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="line")
+line.t <- mintc.t.test(db)
+line.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="method")
+method.t <- mintc.t.test(db)
+method.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="clazz")
+clazz.t <- mintc.t.test(db)
+clazz.m <- mutant.t.test(db)
+
+# rm_none      rm_nmc       rm_nc        rm_rc        rm_dc        rm_rv
+# rm_ic        rm_cc       rm_emv       rm_vmc       rm_m         rm_cb
+# rm_i         rm_ri        rm_rs        rm_es       
+db <- subset(common.db, operator=="rm_nmc")
+rm.nmc.t <- mintc.t.test(db)
+rm.nmc.m <- mutant.t.test(db)
+ 
+db <- subset(common.db, operator=="rm_rv")
+rm.rv.t <- mintc.t.test(db)
+rm.rv.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rm_ic")
+rm.ic.t <- mintc.t.test(db)
+rm.ic.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rm_dc")
+rm.dc.t <- mintc.t.test(db)
+rm.dc.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rm_nc")
+rm.nc.t <- mintc.t.test(db)
+rm.nc.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rm_rc")
+rm.rc.t <- mintc.t.test(db)
+rm.rc.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rm_vmc")
+rm.vmc.t <- mintc.t.test(db)
+rm.vmc.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rm_cc")
+rm.cc.t <- mintc.t.test(db)
+rm.cc.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rm_emv")
+rm.emv.t <- mintc.t.test(db)
+rm.emv.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rm_m")
+rm.m.t <- mintc.t.test(db)
+rm.m.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rm_cb")
+rm.cb.t <- mintc.t.test(db)
+rm.cb.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rm_i")
+rm.i.t <- mintc.t.test(db)
+rm.i.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rm_ri")
+rm.ri.t <- mintc.t.test(db)
+rm.ri.m <- mutant.t.test(db)
+ 
+db <- subset(common.db, operator=="rm_rs")
+rm.rs.t <- mintc.t.test(db)
+rm.rs.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rm_es")
+rm.es.t <- mintc.t.test(db)
+rm.es.m <- mutant.t.test(db)
+ 
+
+
+db <- subset(common.db, operator=="nmc")
+nmc.t <- mintc.t.test(db)
+nmc.m <- mutant.t.test(db)
+ 
+db <- subset(common.db, operator=="rv")
+rv.t <- mintc.t.test(db)
+rv.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="ic")
+ic.t <- mintc.t.test(db)
+ic.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="dc")
+dc.t <- mintc.t.test(db)
+dc.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="nc")
+nc.t <- mintc.t.test(db)
+nc.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="rc")
+rc.t <- mintc.t.test(db)
+rc.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="vmc")
+vmc.t <- mintc.t.test(db)
+vmc.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="cc")
+cc.t <- mintc.t.test(db)
+cc.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="emv")
+emv.t <- mintc.t.test(db)
+emv.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="m")
+m.t <- mintc.t.test(db)
+m.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="cb")
+cb.t <- mintc.t.test(db)
+cb.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="i")
+i.t <- mintc.t.test(db)
+i.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="ri")
+ri.t <- mintc.t.test(db)
+ri.m <- mutant.t.test(db)
+ 
+db <- subset(common.db, operator=="rs")
+rs.t <- mintc.t.test(db)
+rs.m <- mutant.t.test(db)
+
+db <- subset(common.db, operator=="es")
+es.t <- mintc.t.test(db)
+es.m <- mutant.t.test(db)
+ 
+db <- subset(common.db, operator=="in")
+in.t <- mintc.t.test(db)
+in.m <- mutant.t.test(db)
+
+@
+

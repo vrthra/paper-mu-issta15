@@ -1,0 +1,57 @@
+\begin{table*}[!ht]
+<<results='asis'>>=
+t.test.table <- data.frame(u.mean=NA,u.CI.high=NA,u.CI.low=NA,u.p.value=NA, m.mean=NA,m.CI.high=NA,m.CI.low=NA,m.p.value=NA)[numeric(0),]
+
+#t.test.table['N-Selection',]            <- c(nsel.t$estimate,nsel.t$conf.int[1],nsel.t$conf.int[2],nsel.t$p.value, nsel.m$estimate,nsel.m$conf.int[1],nsel.m$conf.int[2],nsel.m$p.value)
+
+#t.test.table['Operator-Selection (all)',] <- c(opsel.t$estimate,opsel.t$conf.int[1],opsel.t$conf.int[2],opsel.t$p.value)
+t.test.table['Constrained Selection',] <- c(constrained.t$estimate,constrained.t$conf.int[1],constrained.t$conf.int[2],constrained.t$p.value,constrained.m$estimate,constrained.m$conf.int[1],constrained.m$conf.int[2],constrained.m$p.value)
+t.test.table['E-Selective',]           <- c(eselective.t$estimate,eselective.t$conf.int[1],eselective.t$conf.int[2],eselective.t$p.value, eselective.m$estimate,eselective.m$conf.int[1],eselective.m$conf.int[2],eselective.m$p.value)
+t.test.table['Javalanche',]            <- c(javalanche.t$estimate,javalanche.t$conf.int[1],javalanche.t$conf.int[2],javalanche.t$p.value, javalanche.m$estimate,javalanche.m$conf.int[1],javalanche.m$conf.int[2],javalanche.m$p.value)
+t.test.table['VariableReduction',]     <- c(variable.t$estimate,variable.t$conf.int[1],variable.t$conf.int[2],variable.t$p.value, variable.m$estimate,variable.m$conf.int[1],variable.m$conf.int[2],variable.m$p.value)
+t.test.table['Statement Deletion',]    <- c(sdl.t$estimate,sdl.t$conf.int[1],sdl.t$conf.int[2],sdl.t$p.value, sdl.m$estimate,sdl.m$conf.int[1],sdl.m$conf.int[2],sdl.m$p.value)
+
+t.test.table['SingleOp-Selection',]    <- c(single.t$estimate,single.t$conf.int[1],single.t$conf.int[2],single.t$p.value, single.m$estimate,single.m$conf.int[1],single.m$conf.int[2],single.m$p.value)
+
+t.test.table['Operator x\\% Selection',]        <- c(opx.t$estimate,opx.t$conf.int[1],opx.t$conf.int[2],opx.t$p.value, opx.m$estimate,opx.m$conf.int[1],opx.m$conf.int[2],opx.m$p.value)
+t.test.table['Line Scoped',]           <- c(line.t$estimate,line.t$conf.int[1],line.t$conf.int[2],line.t$p.value, line.m$estimate,line.m$conf.int[1],line.m$conf.int[2],line.m$p.value)
+t.test.table['Method Scoped',]         <- c(method.t$estimate,method.t$conf.int[1],method.t$conf.int[2],method.t$p.value, method.m$estimate,method.m$conf.int[1],method.m$conf.int[2],method.m$p.value)
+t.test.table['Class Scoped',]          <- c(clazz.t$estimate,clazz.t$conf.int[1],clazz.t$conf.int[2],clazz.t$p.value, clazz.m$estimate,clazz.m$conf.int[1],clazz.m$conf.int[2],clazz.m$p.value)
+
+
+t.test.table['N-Selection -nmc',]            <- c(rm.nmc.t$estimate,rm.nmc.t$conf.int[1],rm.nmc.t$conf.int[2],rm.nmc.t$p.value, rm.nmc.m$estimate,rm.nmc.m$conf.int[1],rm.nmc.m$conf.int[2],rm.nmc.m$p.value)
+t.test.table['N-Selection -rv',]            <- c(rm.rv.t$estimate,rm.rv.t$conf.int[1],rm.rv.t$conf.int[2],rm.rv.t$p.value, rm.rv.m$estimate,rm.rv.m$conf.int[1],rm.rv.m$conf.int[2],rm.rv.m$p.value)
+t.test.table['N-Selection -ic',]            <- c(rm.ic.t$estimate,rm.ic.t$conf.int[1],rm.ic.t$conf.int[2],rm.ic.t$p.value, rm.ic.m$estimate,rm.ic.m$conf.int[1],rm.ic.m$conf.int[2],rm.ic.m$p.value)
+t.test.table['N-Selection -dc',]            <- c(rm.dc.t$estimate,rm.dc.t$conf.int[1],rm.dc.t$conf.int[2],rm.dc.t$p.value, rm.dc.m$estimate,rm.dc.m$conf.int[1],rm.dc.m$conf.int[2],rm.dc.m$p.value)
+t.test.table['N-Selection -nc',]            <- c(rm.nc.t$estimate,rm.nc.t$conf.int[1],rm.nc.t$conf.int[2],rm.nc.t$p.value, rm.nc.m$estimate,rm.nc.m$conf.int[1],rm.nc.m$conf.int[2],rm.nc.m$p.value)
+t.test.table['N-Selection -rc',]            <- c(rm.rc.t$estimate,rm.rc.t$conf.int[1],rm.rc.t$conf.int[2],rm.rc.t$p.value, rm.rc.m$estimate,rm.rc.m$conf.int[1],rm.rc.m$conf.int[2],rm.rc.m$p.value)
+t.test.table['N-Selection -vmc',]            <- c(rm.vmc.t$estimate,rm.vmc.t$conf.int[1],rm.vmc.t$conf.int[2],rm.vmc.t$p.value, rm.vmc.m$estimate,rm.vmc.m$conf.int[1],rm.vmc.m$conf.int[2],rm.vmc.m$p.value)
+t.test.table['N-Selection -m',]            <- c(rm.m.t$estimate,rm.m.t$conf.int[1],rm.m.t$conf.int[2],rm.m.t$p.value, rm.m.m$estimate,rm.m.m$conf.int[1],rm.m.m$conf.int[2],rm.m.m$p.value)
+t.test.table['N-Selection -cb',]            <- c(rm.cb.t$estimate,rm.cb.t$conf.int[1],rm.cb.t$conf.int[2],rm.cb.t$p.value, rm.cb.m$estimate,rm.cb.m$conf.int[1],rm.cb.m$conf.int[2],rm.cb.m$p.value)
+t.test.table['N-Selection -i',]            <- c(rm.i.t$estimate,rm.i.t$conf.int[1],rm.i.t$conf.int[2],rm.i.t$p.value, rm.i.m$estimate,rm.i.m$conf.int[1],rm.i.m$conf.int[2],rm.i.m$p.value)
+t.test.table['N-Selection -ri',]            <- c(rm.ri.t$estimate,rm.ri.t$conf.int[1],rm.ri.t$conf.int[2],rm.ri.t$p.value, rm.ri.m$estimate,rm.ri.m$conf.int[1],rm.ri.m$conf.int[2],rm.ri.m$p.value)
+t.test.table['N-Selection -rs',]            <- c(rm.rs.t$estimate,rm.rs.t$conf.int[1],rm.rs.t$conf.int[2],rm.rs.t$p.value, rm.rs.m$estimate,rm.rs.m$conf.int[1],rm.rs.m$conf.int[2],rm.rs.m$p.value)
+t.test.table['N-Selection -es',]            <- c(rm.es.t$estimate,rm.es.t$conf.int[1],rm.es.t$conf.int[2],rm.es.t$p.value, rm.es.m$estimate,rm.es.m$conf.int[1],rm.es.m$conf.int[2],rm.es.m$p.value)
+
+t.test.table['Op-Selection nmc',]            <- c(nmc.t$estimate,nmc.t$conf.int[1],nmc.t$conf.int[2],nmc.t$p.value, nmc.m$estimate,nmc.m$conf.int[1],nmc.m$conf.int[2],nmc.m$p.value)
+t.test.table['Op-Selection rv',]            <- c(rv.t$estimate,rv.t$conf.int[1],rv.t$conf.int[2],rv.t$p.value, rv.m$estimate,rv.m$conf.int[1],rv.m$conf.int[2],rv.m$p.value)
+t.test.table['Op-Selection ic',]            <- c(ic.t$estimate,ic.t$conf.int[1],ic.t$conf.int[2],ic.t$p.value, ic.m$estimate,ic.m$conf.int[1],ic.m$conf.int[2],ic.m$p.value)
+t.test.table['Op-Selection dc',]            <- c(dc.t$estimate,dc.t$conf.int[1],dc.t$conf.int[2],dc.t$p.value, dc.m$estimate,dc.m$conf.int[1],dc.m$conf.int[2],dc.m$p.value)
+t.test.table['Op-Selection nc',]            <- c(nc.t$estimate,nc.t$conf.int[1],nc.t$conf.int[2],nc.t$p.value, nc.m$estimate,nc.m$conf.int[1],nc.m$conf.int[2],nc.m$p.value)
+t.test.table['Op-Selection rc',]            <- c(rc.t$estimate,rc.t$conf.int[1],rc.t$conf.int[2],rc.t$p.value, rc.m$estimate,rc.m$conf.int[1],rc.m$conf.int[2],rc.m$p.value)
+t.test.table['Op-Selection vmc',]            <- c(vmc.t$estimate,vmc.t$conf.int[1],vmc.t$conf.int[2],vmc.t$p.value, vmc.m$estimate,vmc.m$conf.int[1],vmc.m$conf.int[2],vmc.m$p.value)
+t.test.table['Op-Selection m',]            <- c(m.t$estimate,m.t$conf.int[1],m.t$conf.int[2],m.t$p.value, m.m$estimate,m.m$conf.int[1],m.m$conf.int[2],m.m$p.value)
+t.test.table['Op-Selection cb',]            <- c(cb.t$estimate,cb.t$conf.int[1],cb.t$conf.int[2],cb.t$p.value, cb.m$estimate,cb.m$conf.int[1],cb.m$conf.int[2],cb.m$p.value)
+t.test.table['Op-Selection i',]            <- c(i.t$estimate,i.t$conf.int[1],i.t$conf.int[2],i.t$p.value, i.m$estimate,i.m$conf.int[1],i.m$conf.int[2],i.m$p.value)
+t.test.table['Op-Selection ri',]            <- c(ri.t$estimate,ri.t$conf.int[1],ri.t$conf.int[2],ri.t$p.value, ri.m$estimate,ri.m$conf.int[1],ri.m$conf.int[2],ri.m$p.value)
+t.test.table['Op-Selection rs',]            <- c(rs.t$estimate,rs.t$conf.int[1],rs.t$conf.int[2],rs.t$p.value, rs.m$estimate,rs.m$conf.int[1],rs.m$conf.int[2],rs.m$p.value)
+t.test.table['Op-Selection es',]            <- c(es.t$estimate,es.t$conf.int[1],es.t$conf.int[2],es.t$p.value, es.m$estimate,es.m$conf.int[1],es.m$conf.int[2],es.m$p.value)
+t.test.table['Op-Selection in',]            <- c(in.t$estimate,in.t$conf.int[1],in.t$conf.int[2],in.t$p.value, in.m$estimate,in.m$conf.int[1],in.m$conf.int[2],in.m$p.value)
+
+
+print(xtable(t.test.table, caption='T-Tests', label='table:ttest'), include.rownames=T, floating=F, size='\\small',sanitize.text.function=function(x){x})
+@
+\caption {The t-test for difference between mutants selected by reduction strategies and the baseline. It shows that there is no practical difference between the two.}
+\label{tbl:ttests}
+\end{table*}
+

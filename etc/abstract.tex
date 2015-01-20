@@ -1,0 +1,57 @@
+% 1.Statetheproblem
+Mutation analysis is a well-known method for measuring the quality of
+test suites. However, it is computationally intensive compared to
+other measures, which makes it hard to use in practice. Multiple
+strategies has been proposed to reduce the number of mutants produced,
+and hence reduce the computational requirements.
+
+%
+%2.Saywhyit’saninterestingproblem
+However, current research on mutation reduction is beset with several
+problems. There is inconclusive evidence supporting many of the suggested
+reduction strategies due to the limited number and size of of subject
+programs investigated. The lack of a comprehensive study comparing
+at-least the major approaches is another problem. Finally the traditional
+evaluation criteria for mutation reduction approaches relies on
+mutation-adequate test suites which rarely occur in real world. There is
+little evidence that the strategies that perform well using the traditional
+evaluation crtiera leads to better mutation selection for non-adequate
+tests in the real world.
+
+%3.Saywhatyoursolutionachieves
+
+We extend the traditional reduction crtieria so that it is usable with
+non-mutation adequate test suites, and link it to the actual use of
+mutation analysis during development -- to produce tests that check for
+as many different bugs as possible.
+
+We evaluate the performance of various selection criteria on 312 opensource
+projects from github, which shows that the popular reduction strategies:
+operator selection, operator based sampling, and element based sampling
+are hardly better than random selection, and often performs worse.
+This suggests a need for further research on better methods of mutation
+reduction strategies.
+
+% Our results can be used to choose an appropriate mutation
+% reduction technique by the reduction and level of fidelity to full
+% mutation results required.
+
+%according to the mutation reduction ratio desired, and
+%how much reduction in accuracy is acceptable.
+
+%4.Saywhatfollowsfromyoursolution
+
+% We find that all sampling approaches perform better than operator
+% selection methods, when considering ability to predict the full
+% mutation score as well as the consistency of mutation reduction ratios
+% achieved.
+
+%and also the consistency of mutation reduction ratios achieved.  Specifically,
+%we find that random selection of a mutant performs better than statement
+%deletion operator selection criteria.
+
+% Technical papers must be prepared in ACM conference format and must not exceed 10 pages
+% (including figures and appendices but NOT including references). That is, any pages after
+% the tenth must contain only references. All submissions must be in English. Submit your
+% paper via the paper submission website. Submissions that do not adhere to these
+% guidelines or that violate formatting will be declined without review.

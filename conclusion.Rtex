@@ -1,0 +1,31 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+Our analysis suggests that while some of the different strategies produce
+slightly advantageous mutation subsets, overall, the advantage thus gained
+is very little. None of the common operator selection strategies performed
+consistently well against random sampling while using either the utility or
+the mutation effectiveness criteria. While some of the individual operators
+seemed to indicate a mean positive test utility or a mean strategy
+effectiveness, the effect itself is too small (of the order of one or two
+mutants or tests) to be of much help for a tester in the real world.
+
+A similar result seems to be the case for operator based x\% selection
+strategy or even for the element based x\% strategy. They in general show a
+slight advantage in test utility which while consistent, is not of much
+practical utility.
+
+This suggests that that none of the well known reduction strategies are
+actually able to consistenly select useful mutants, and the best path forward
+for a working tester is to rely on the simplest scheme of all -- the random
+selection of mutants.
+
+There is a second possible point of interest here: as with coverage
+metrics used to predict mutation scores~\cite{gopinath2014code}, using
+a large body of actual open source code to perform experiments seems
+to favor simple and easily-implemented approaches much more strongly
+than limited experiments on more academic subjects.  We speculate that
+the inadequacies in real world test suites may frequently be more simply
+predicted and evaluated than for typical research subjects, which may
+be smaller or involve less easily distinguished test suites.
+

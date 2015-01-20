@@ -1,0 +1,59 @@
+\begin{table*}[!ht]
+%\caption*{Selective}
+<<results='asis'>>=
+eff <- function(v) {
+  v$strategy.effectiveness <- v$strategy.effectiveness - v$baseline.effectiveness
+  return(v)
+}
+tbl.place <- function(xtb) {
+  align(xtb) <- "p{0.1\\textwidth}|p{0.15\\textwidth}|p{0.15\\textwidth}|p{0.15\\textwidth}|p{0.15\\textwidth}|p{0.15\\textwidth}"
+  return(xtb)
+}
+# s.selective.db['sdl','mutation.share'] <- -1 #paste(s.opsample.db['sdl','mutation.share'],'*')
+print(tbl.place(xtable(eff(s.selective.db), caption='Selective Strategy', label='table:selective')),include.rownames=T, floating=F, size='\\small',sanitize.text.function=function(x){x})
+@
+\caption {The operator selection strategy}
+\label{tbl:selective}
+\end{table*}
+
+\begin{table*}[!ht]
+%\caption*{N-Selection}
+<<results='asis'>>=
+print(tbl.place(xtable(eff(s.nselection.db), caption='N-Selection', label='table:nselection')), include.rownames=T, floating=F, size='\\small',sanitize.text.function=function(x){x})
+@
+\caption {The N-selective strategy}
+\label{tbl:nselection}
+\end{table*}
+
+\begin{table*}[!ht]
+<<tblsingle,results='asis'>>=
+norder <- c('nmc','rv','ic','dc','nc','rc','vmc','cc','emv','m','cb','i','ri','rs','es','in')
+print(tbl.place(xtable(eff(s.singles.db[norder,]), caption='Single Operators', label='table:singles')), include.rownames=T, floating=F, size='\\small',sanitize.text.function=function(x){x})
+@
+\caption {The single operator selection strategy}
+\label{tbl:singles}
+\end{table*}
+
+\begin{table*}[!ht]
+%\caption*{Operator Samples x\%}
+<<results='asis'>>=
+print(tbl.place(xtable(eff(s.opsample.db), caption='Operator x samples', label='table:opsample')), include.rownames=T, floating=F, size='\\small',sanitize.text.function=function(x){x})
+@
+\caption {The operator based x\% sample strategy}
+\label{tbl:opsample}
+\caption*{
+The test and assert utility shows how good the mutation strategy is with respect to baseline in selecting non-redundant test cases. The mutation share is the fraction of mutants produced by the strategy compared to the full set.  The strategy effectiveness shows how many of the total mutants would be caught by a test suite selected by the strategy mutants. }
+
+
+\end{table*}
+
+
+\begin{table*}[!ht]
+%\caption*{Element Scoped}
+<<results='asis'>>=
+print(tbl.place(xtable(eff(s.lmcp.db), caption='Element Scoped', label='table:element')), include.rownames=T, floating=F, size='\\small',sanitize.text.function=function(x){x})
+@
+\caption {The element based x\% sample strategy}
+\label{tbl:element}
+\end{table*}
+
